@@ -311,9 +311,6 @@ def query_database_page():
 
     # Release the webcam and close windows
             cap.release()
-            cv2.destroyAllWindows()
-
-        
 
     elif operation == "Get QR":
         st.title("QR Code Generator for Inventory Item")
