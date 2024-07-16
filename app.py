@@ -4,7 +4,6 @@ import pandas as pd
 import qrcode
 from io import BytesIO
 import numpy as np
-from pyzbar.pyzbar import decode
 import os
 import cv2
 from streamlit_option_menu import option_menu
@@ -151,25 +150,25 @@ def query_database_page():
     cursor = conn.cursor()
 
     def read_multiple_qr_codes_from_frame(frame):
-        decoded_objects = decode(frame)
+        qr_code_detector = cv2.QRCodeDetector()
         decoded_info = []
 
-        for obj in decoded_objects:
-            data = obj.data.decode("utf-8")
-            decoded_info.append(data)
-        
-        # Get the bounding box coordinates
-            points = obj.polygon
-            if len(points) == 4:
-                x1, y1 = points[0].x, points[0].y
-                x2, y2 = points[2].x, points[2].y
-            else:
-                x1, y1 = points[0].x, points[0].y
-                x2, y2 = points[1].x, points[1].y
-        
-        # Draw rectangle around QR code
-            cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 5)
-            cv2.putText(frame, data, (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2)
+    # Detect and decode QR codes in the frame
+        retval, decoded_objects, points, _ = qr_code_detector.detectAndDecodeMulti(frame)
+    
+        if points is not None:
+            for i in range(len(decoded_objects)):
+                data = decoded_objects[i]
+                decoded_info.append(data)
+            
+            # Get the bounding box coordinates
+                pts = points[i].astype(int)
+                x1, y1 = pts[0][0], pts[0][1]
+                x2, y2 = pts[2][0], pts[2][1]
+            
+            # Draw rectangle around QR code
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 5)
+                cv2.putText(frame, data, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2)
 
         return decoded_info, frame
 
