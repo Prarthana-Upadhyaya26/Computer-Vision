@@ -1,0 +1,7 @@
+streamlit
+sqlite3
+pandas
+qrcode
+pyzbar
+opencv-python-headless
+streamlit-option-menu
