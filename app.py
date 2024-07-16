@@ -277,7 +277,7 @@ def query_database_page():
 
         button1 = st.button("Scan QR", key='QR-scanning')
         if button1:
-            cap = cv2.VideoCapture(0)
+            cap = cv2.VideoCapture(1)
 
             if not cap.isOpened():
                 st.error("Error: Could not open webcam.")
