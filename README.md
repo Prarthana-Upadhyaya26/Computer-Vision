@@ -40,14 +40,14 @@ To get an idea of what the project is about, check it out, something intresting 
    ```bash
    git clone https://github.com/yourusername/inventory-management-system.git
    cd inventory-management-system
-2. Demo app
+### 2. Demo app
       to get an idea of the entire proh=ject in a quick glance
    url - "https://computer-vision-l2ha3mqffde2nen9hqf6bz.streamlit.app/"
-3. using trained models 
+### 3. using trained models 
       While working on our project we were surprised to find out something as common as a box is not included in the 80 classes of yolov8. Detection of boxes both 2D and 3D could have endless applications in the industry. You can diretly use our pre-trained models.
-      1. *train2/best.pt*: Trained on 2D carton images.
-      2. *train3/best.pt*: Trained on 3D carton images.
+1. *train2/best.pt*: Trained on 2D carton images.
+2.  *train3/best.pt*: Trained on 3D carton images.
       
       model = torch.hub.load('ultralytics/yolov5', 'custom', path='path/to/train2/best.pt')
-4. collabrations
+### 4. collabrations
       Feel free to submit issues or pull requests. We welcome contributions to improve the system.
